@@ -915,7 +915,7 @@ file_write(
 		status = JS_FALSE;
 		JS_GetPendingException( cx, &exn );
         rc = JS_ValueToObject(cx, exn, &exn_o);
-        assert(rc == JS_TRUE);
+        JS_ASSERT(rc == JS_TRUE);
 		vp = INT_TO_JSVAL(JSFILEMSG_CANNOT_WRITE);
 		JS_SetProperty(cx, exn_o, "no", &vp);
 		vp = STRING_TO_JSVAL(JS_NewStringCopyZ(cx, "File"));
@@ -1071,7 +1071,7 @@ file_read(
     jsuint          i;
     jsval           v;
     JSObject*       a;
-    int             k;
+    int             read_cnt;
 	struct timeval tv0;
 	struct timeval tv;
 	// gettimeofday(&tv0,NULL);
@@ -1093,16 +1093,16 @@ file_read(
         file->buffer = JS_realloc( p_cx, file->buffer, file->bufsize );
 		file->chars  = JS_realloc( p_cx, file->chars,  file->bufsize * sizeof(jsval));
     }
-    k = read( file->handle, file->buffer, want );
-    if( k >= 0 )
+    read_cnt = read( file->handle, file->buffer, want );
+    if( read_cnt >= 0 )
     {
-	for( i = 0; i < k; i++ )
+	for( i = 0; i < read_cnt; i++ )
 	{
 	    file->chars[i] = INT_TO_JSVAL(file->buffer[i]);
 	}
 	*p_result = JS_NewArrayObject(
 				p_cx, 
-				k, 
+				read_cnt, 
 				file->chars);
 		/*
         a = js_ConstructObject( p_cx, 
