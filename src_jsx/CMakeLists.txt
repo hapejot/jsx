@@ -34,9 +34,9 @@ set( MAIN_EXE_NAME jsx )
 add_executable( ${MAIN_EXE_NAME} ${MAIN_SOURCES}                                 
               )
 
-#if (LINUX)
-set (MATH_LIB m)
-#endif (LINUX)
+if (UNIX)
+	set (MATH_LIB m)
+endif (UNIX)
 
 ## 2. Link...
 target_link_libraries( ${MAIN_EXE_NAME} PUBLIC js ${MATH_LIB})
