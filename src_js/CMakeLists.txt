@@ -5,7 +5,8 @@ cmake_minimum_required( VERSION 2.8 )
 
 ## Sources and headers
 ### include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
-include_directories( ../include )
+include_directories( 	../include 
+			../include/${CMAKE_SYSTEM_NAME} )
 
 ## Find all source files to be compiled into object files
 ## file( GLOB SOURCES *.c )
@@ -48,15 +49,19 @@ set( SOURCES
 
 
 ##set( CMAKE_C_FLAGS "-DBUILDNO=${BUILDNO} -DJS_ARENAMETER" )
-set( CMAKE_C_FLAGS "-DBUILDNO=${BUILDNO}" )
+set( CMAKE_C_FLAGS "-m32 -DBUILDNO=${BUILDNO}" )
 ##set( CMAKE_C_FLAGS_DEBUG "-DDEBUG" )
 ##set( CMAKE_C_FLAGS_RELEASE "" )
 
-
-
+if (WIN32)
+	set( WS_LIB Ws2_32 )
+endif (WIN32)
+if (LINUX)
+	set( MATH_LIB m)
+endif (LINUX)
 ## 1. Compile...
 
 add_library(js SHARED ${SOURCES} )
 target_compile_definitions(js PUBLIC EXPORT_JS_API)
-target_link_libraries( js PUBLIC Ws2_32 fdlibm )
+target_link_libraries( js PUBLIC ${WS_LIB} fdlibm ${MATH_LIB})
 

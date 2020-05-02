@@ -97,7 +97,7 @@ function Print(s) {
 
 if(typeof print === 'undefined') print = console.log
 
-var cnt = 100000000
+var cnt = 1000
 
 
 var lengths = {}
