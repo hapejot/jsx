@@ -1,5 +1,9 @@
 cmake_minimum_required( VERSION 2.8 )
 
+if (UNIX)
+	set( CPU_FLAG "-m32" )
+endif (UNIX)
+
 ## Required software
 #find_package( <<<name>>> REQUIRED )
 
@@ -49,7 +53,7 @@ set( SOURCES
 
 
 ##set( CMAKE_C_FLAGS "-DBUILDNO=${BUILDNO} -DJS_ARENAMETER" )
-set( CMAKE_C_FLAGS "-m32 -DBUILDNO=${BUILDNO}" )
+set( CMAKE_C_FLAGS "${CPU_FLAG} -DBUILDNO=${BUILDNO}" )
 ##set( CMAKE_C_FLAGS_DEBUG "-DDEBUG" )
 ##set( CMAKE_C_FLAGS_RELEASE "" )
 

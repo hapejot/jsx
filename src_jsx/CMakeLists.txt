@@ -9,7 +9,10 @@ include_directories( 	../include
 			../include/${CMAKE_SYSTEM_NAME} )
 
 
-set( CMAKE_C_FLAGS "-m32 -DBUILDNO=${BUILDNO}" )
+if (UNIX)
+	set( CPU_FLAG "-m32" )
+endif (UNIX)
+set( CMAKE_C_FLAGS "${CPU_FLAG} -DBUILDNO=${BUILDNO}" )
 ##set( CMAKE_C_FLAGS_DEBUG "" )
 ##set( CMAKE_C_FLAGS_RELEASE "" )
 
