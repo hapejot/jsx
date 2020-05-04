@@ -12,6 +12,17 @@
 #include <signal.h>
 #include <sys/stat.h>
 
+// Check windows
+#if _WIN32 || _WIN64
+#if _WIN64
+#define ENVIRONMENT64
+#else
+#define ENVIRONMENT32
+#endif
+#endif
+
+
+
 #define PLATFORM_IS_LINUX   0
 #define PLATFORM_IS_UNIX    0
 #define PLATFORM_IS_WIN32   1

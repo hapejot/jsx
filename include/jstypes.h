@@ -377,8 +377,15 @@ typedef JSUint8 JSPackedBool;
 /*
 ** A JSWord is an integer that is the same size as a void*
 */
+#ifdef ENVIRONMENT32
 typedef long JSWord;
 typedef unsigned long JSUword;
+#endif
+
+#ifdef ENVIRONMENT64
+typedef long long JSWord;
+typedef unsigned long long JSUword;
+#endif
 
 #include "jsotypes.h"
 

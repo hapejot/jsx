@@ -21,7 +21,13 @@
 #include <locale.h>
 #include <dirent.h>
 
-
+#if __GNUC__
+#if __x86_64__ || __ppc64__
+#define ENVIRONMENT64
+#else
+#define ENVIRONMENT32
+#endif
+#endif
 
 #define PLATFORM_IS_LINUX   1
 #define PLATFORM_IS_UNIX    1
